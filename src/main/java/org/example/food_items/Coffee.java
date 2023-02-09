@@ -8,7 +8,7 @@ public class Coffee implements FoodItem {
 
     @Override
     public int prepareTime() {
-        return 10;
+        return 3;
     }
 
     @Override

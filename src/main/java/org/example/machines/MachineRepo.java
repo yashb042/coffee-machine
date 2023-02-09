@@ -13,7 +13,9 @@ public class MachineRepo {
         burgerMachineList.add(new BurgerMachine());
         burgerMachineList.add(new BurgerMachine());
 
-        coffeeMachineList.add(new CoffeeMachine());
+        coffeeMachineList.add(new CoffeeMachine("coffeeMachine1"));
+        coffeeMachineList.add(new CoffeeMachine("coffeeMachine2"));
+        coffeeMachineList.add(new CoffeeMachine("coffeeMachine3"));
 
         sandwichMachineList.add(new SandwichMachine());
         sandwichMachineList.add(new SandwichMachine());

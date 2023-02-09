@@ -8,6 +8,11 @@ import java.util.concurrent.Executors;
 
 public class CoffeeMachine implements Machine {
 
+    public CoffeeMachine(String name) {
+        this.name = name;
+    }
+
+    private String name;
     private boolean used = false;
 
     @Override
@@ -17,6 +22,7 @@ public class CoffeeMachine implements Machine {
 
     @Override
     public FoodItem prepareFood() {
+        System.out.println("Using coffee machine " + name);
         used = true;
         FoodItem coffee = new Coffee();
         boolean canBePrepared = ingRepo.getIngForFood(coffee.requiredItems());
@@ -27,7 +33,7 @@ public class CoffeeMachine implements Machine {
             return null;
         }
 
-        System.out.println("Preparing coffee - " + coffee.prepareTime());
+//        System.out.println("Preparing coffee - " + coffee.prepareTime());
         try {
             Thread.sleep(coffee.prepareTime() * 1000);
         } catch (InterruptedException e) {

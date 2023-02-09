@@ -16,6 +16,7 @@ public class Operator {
 
     void prepareFood(String food) {
         isFree = false;
+        System.out.println("Operator started preparing - " + name);
         switch (food) {
             case "COFFEE" -> {
                 List<Machine> coffeeMachineList = Main.machineRepo.coffeeMachineList;
