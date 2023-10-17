@@ -21,16 +21,9 @@ public class Main {
         operatorList.add(new Operator("operator2"));
         operatorList.add(new Operator("operator3"));
 
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
-//        executorService.submit(Main::placeOrders);
-
         placeOrders();
-
-
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
         executorService.submit(() -> keepTakingOrders(operatorList, executorService));
-
-
-       // placeOrders();
     }
 
     private static void keepTakingOrders(List<Operator> operatorList, ExecutorService executorService) {
@@ -47,7 +40,6 @@ public class Main {
             }
             if (!couldProcess)
                 System.out.println("Operator not present");
-//            orderQueue.add(food);
         }
     }
 
