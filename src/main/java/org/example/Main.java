@@ -1,14 +1,13 @@
 package org.example;
 
-import org.example.food_items.FoodItem;
-import org.example.ingredients.IngredientsRepo;
 import org.example.machines.MachineRepo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import static java.lang.Thread.sleep;
 
 public class Main {
     static Queue<String> orderQueue = new LinkedList<>();
@@ -23,17 +22,29 @@ public class Main {
 
         placeOrders();
         ExecutorService executorService = Executors.newFixedThreadPool(5);
-        executorService.submit(() -> keepTakingOrders(operatorList, executorService));
+        executorService.submit(() -> {
+            try {
+                keepTakingOrders(operatorList, executorService);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
-    private static void keepTakingOrders(List<Operator> operatorList, ExecutorService executorService) {
+    private static void keepTakingOrders(List<Operator> operatorList, ExecutorService executorService) throws InterruptedException {
         while (!orderQueue.isEmpty()) {
             boolean couldProcess = false;
             String food = orderQueue.poll();
             for (Operator operator : operatorList) {
                 if (operator.canReceive()) {
-                    executorService.submit(() -> operator.prepareFood(food));
-                    System.out.println("Sent for processing");
+                    executorService.submit(() -> {
+                        try {
+                            operator.prepareFood(food);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+//                    System.out.println("Sent for processing");
                     couldProcess = true;
                     break;
                 }
@@ -43,15 +54,13 @@ public class Main {
         }
     }
 
-    private static void placeOrders() {
+    private static void placeOrders() throws InterruptedException {
         List<Customer> customerList = new ArrayList<>();
         customerList.add(new Customer("Cust1"));
         customerList.add(new Customer("Cust2"));
-        customerList.add(new Customer("Cust3"));
-        customerList.add(new Customer("Cust4"));
 
-        customerList.forEach(customer -> {
+        for (Customer customer : customerList) {
             customer.placeOrder("COFFEE");
-        });
+        }
     }
 }

@@ -7,7 +7,7 @@ public interface Machine {
 
     String getMachineType();
 
-    FoodItem prepareFood();
+    FoodItem prepareFood() throws InterruptedException;
 
     void waitWhileFoodPrepared(int time);
 

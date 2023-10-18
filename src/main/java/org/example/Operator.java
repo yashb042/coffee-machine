@@ -13,9 +13,9 @@ public class Operator {
         this.name = name;
     }
 
-    void prepareFood(String food) {
+    void prepareFood(String food) throws InterruptedException {
         isFree = false;
-        System.out.println("Operator started preparing - " + name);
+//        System.out.println("Operator started preparing - " + name);
 
         List<Machine> coffeeMachineList = Main.machineRepo.coffeeMachineList;
         Machine coffeeMachine = coffeeMachineList.stream().filter(machine -> !machine.inUse()).findFirst().orElse(null);
@@ -30,7 +30,8 @@ public class Operator {
         isFree = true;
     }
 
-    public boolean canReceive() {
+    public boolean canReceive() throws InterruptedException {
+        Thread.sleep(1000);
         return isFree;
     }
 }

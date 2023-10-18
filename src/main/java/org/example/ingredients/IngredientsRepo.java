@@ -1,7 +1,6 @@
 package org.example.ingredients;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +19,8 @@ public class IngredientsRepo {
         return integer != 0;
     }
 
-    public boolean getIngForFood(ArrayList<Ingredient> ingredients) {
+    public boolean getIngForFood(ArrayList<Ingredient> ingredients) throws InterruptedException {
+        Thread.sleep(1000);
         boolean isSufficient = ingredients.stream().anyMatch(this::checkIng);
         if (!isSufficient) {
             return false;

@@ -11,10 +11,10 @@ import java.lang.reflect.Method;
 public class MyAspect {
 
     @Around("(execution(* org.example.Operator.*(..)) ||" +
+            "execution(* org.example.Customer.*(..)) ||" +
             "execution(* org.example.food_items..*.*(..)) ||" +
             "execution(* org.example.ingredients..*.*(..)) ||" +
-            "execution(* org.example.machines..*.*(..))) &&" +
-            "!execution(* *.lambda*(..))")
+            "execution(* org.example.machines..*.*(..)))")
     public Object logTimes(final ProceedingJoinPoint point) throws Throwable {
         final Method method = ((MethodSignature) point.getSignature()).getMethod();
         final long start = System.nanoTime();
@@ -22,11 +22,11 @@ public class MyAspect {
             final Object result = point.proceed();
             final long nano = System.nanoTime() - start;
             final long millis = nano / 1000000;
-            System.out.println("After doSomething() method success - " + method.getName() + " " + millis);
+            if (millis != 0)
+                System.out.println("Aspect method success - functionName - " + method.getName() + " , time - " + millis);
             return result;
         } catch (final Throwable ex) {
-            final long nano = System.nanoTime() - start;
-            System.out.println("After doSomething() method failed - " + method.getName());
+            System.out.println("Aspect method failed  - functionName - " + method.getName());
             throw ex;
         }
     }

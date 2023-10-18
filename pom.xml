@@ -16,6 +16,7 @@
             <version>1.16.6</version>
             <scope>provided</scope>
         </dependency>
+<!--        From here the AOP dependencies start&ndash;&gt;-->
         <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-aspects</artifactId>
@@ -29,6 +30,7 @@
             <!--TODO: commented out because it fails the swagger-maven-plugin-->
             <!--<scope>runtime</scope>-->
         </dependency>
+<!--            From here the AOP dependencies end-->
     </dependencies>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -37,7 +39,6 @@
     </properties>
 
     <build>
-        <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -87,6 +88,7 @@
                     </archive>
                 </configuration>
             </plugin>
+            <!--            From here the AOP plugins start-->
             <plugin>
                 <groupId>com.googlecode.maven-download-plugin</groupId>
                 <artifactId>download-maven-plugin</artifactId>
@@ -108,6 +110,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--            From here the AOP plugins start-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -130,6 +133,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>${project.artifactId}-${project.version}</finalName>
     </build>
 
 </project>

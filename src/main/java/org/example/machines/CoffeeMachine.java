@@ -21,8 +21,8 @@ public class CoffeeMachine implements Machine {
     }
 
     @Override
-    public FoodItem prepareFood() {
-        System.out.println("Using coffee machine " + name);
+    public FoodItem prepareFood() throws InterruptedException {
+//        System.out.println("Using coffee machine " + name);
         used = true;
         FoodItem coffee = new Coffee();
         boolean canBePrepared = ingRepo.getIngForFood(coffee.requiredItems());
@@ -33,26 +33,21 @@ public class CoffeeMachine implements Machine {
             return null;
         }
 
-//        System.out.println("Preparing coffee - " + coffee.prepareTime());
         try {
             Thread.sleep(coffee.prepareTime() * 1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Coffee Prepared");
+//        System.out.println("Coffee Prepared");
         used = false;
         return coffee;
-
-
-//        ExecutorService executorService = Executors.newFixedThreadPool(1);
-//        executorService.submit(()-> waitWhileFoodPrepared(coffee.prepareTime()));
     }
 
     @Override
     public void waitWhileFoodPrepared(int time) {
         try {
             Thread.sleep(time * 1000);
-            System.out.println("Coffee Prepared");
+//            System.out.println("Coffee Prepared");
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

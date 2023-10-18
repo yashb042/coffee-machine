@@ -1,15 +1,12 @@
 package org.example;
 
-import org.example.food_items.FoodItem;
-
-import java.util.List;
-
 public class Customer {
 
     String name;
 
-    void placeOrder(String food) {
-        System.out.println("Placed order");
+    void placeOrder(String food) throws InterruptedException {
+//        System.out.println("Placed order");
+        Thread.sleep(1000);
         Main.orderQueue.add(food);
     }
 
